@@ -1,0 +1,94 @@
+body {
+  font-family: sans-serif;
+  background-color: #000;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  margin: 0;
+  padding: 10px;
+}
+
+.game-container {
+  background-color: #333;
+  padding: 20px;
+  border: 1px solid #666;
+  width: 100%;
+  max-width: 600px;
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#message {
+  text-align: center;
+  margin-bottom: 15px;
+  min-height: 1.5em; 
+}
+
+.hand-section {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #444;
+  border: 1px solid #555;
+}
+
+.hand-title {
+  margin-bottom: 8px;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #999;
+  width: 50px;
+  height: 70px;
+  margin: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+.card-red {
+  color: #c00; 
+}
+.card-hidden {
+  background-color: #666;
+  color: #ccc;
+}
+
+.game-controls {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.game-button {
+  padding: 8px 15px;
+  background-color: #fff;
+  color: #000;
+  border: 1px solid #999;
+  cursor: pointer;
+}
+
+.game-button:hover:not(:disabled) {
+  background-color: #eee;
+}
+
+.game-button:disabled {
+  background-color: #999;
+  color: #ccc;
+  cursor: not-allowed;
+}
