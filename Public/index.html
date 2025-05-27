@@ -1,15 +1,41 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fitness Tracker</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script type="module" src="app.js"></script>
-  </head>
-  <body>
-    <div id="root">
-      </div>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scribble.io Clone</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body class="">
+    <div id="app">
+
+        <div id="join-screen">
+            <input type="text" id="username-input" placeholder="Enter your username">
+            <button id="join-button">
+                Join Game
+            </button>
+        </div>
+
+        <div id="game-container">
+            <div>
+                <div>
+                    <div>
+                        Word: <span id="current-word">_ _ _ _</span>
+                    </div>
+                    <div>
+                        Drawer: <span id="drawer-name" class="font-semibold text-gray-800">Waiting...</span>
+                    </div>
+                    <div class="text-lg font-medium text-gray-700">
+                        Time: <span id="time-left">60s</span>
+                    </div>
+                    <div>
+                        Round: <span id="round-info">0/0</span>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/script.js"></script>
+</body>
 </html>
