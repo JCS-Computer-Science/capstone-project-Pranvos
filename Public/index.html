@@ -6,36 +6,82 @@
     <title>Scribble.io Clone</title>
     <link rel="stylesheet" href="/style.css">
 </head>
-<body class="">
-    <div id="app">
+<body class="font-inter bg-gradient-to-br from-blue-100 to-purple-100 min-h-screen flex items-center justify-center p-4">
+    <div id="app" class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-6xl flex flex-col lg:flex-row gap-6 border-2 border-gray-200">
 
-        <div id="join-screen">
-            <input type="text" id="username-input" placeholder="Enter your username">
-            <button id="join-button">
+        <div id="join-screen" class="flex flex-col items-center justify-center w-full h-full p-8 bg-blue-50 rounded-lg shadow-inner">
+            <input type="text" id="username-input" placeholder="Enter your username"
+                   class="w-full max-w-md p-4 mb-6 text-lg border-2 border-blue-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-blue-200 transition duration-300 ease-in-out shadow-md">
+            <button id="join-button"
+                    class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-full text-xl shadow-lg transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-blue-300">
                 Join Game
             </button>
         </div>
-
-        <div id="game-container">
-            <div>
-                <div>
-                    <div>
-                        Word: <span id="current-word">_ _ _ _</span>
-                    </div>
-                    <div>
-                        Drawer: <span id="drawer-name" class="font-semibold text-gray-800">Waiting...</span>
+        <div id="game-container" class="hidden flex-grow flex flex-col lg:flex-row gap-6">
+            <div class="flex-grow flex flex-col gap-4 bg-gray-50 p-4 rounded-lg shadow-md border border-gray-200">
+                <div class="flex flex-col sm:flex-row justify-between items-center bg-blue-100 p-3 rounded-lg shadow-sm border border-blue-200">
+                    <div class="text-xl font-semibold text-blue-800 mb-2 sm:mb-0">
+                        Word: <span id="current-word" class="font-bold text-blue-900">_ _ _ _</span>
                     </div>
                     <div class="text-lg font-medium text-gray-700">
-                        Time: <span id="time-left">60s</span>
+                        Drawer: <span id="drawer-name" class="font-semibold text-gray-800"></span>
                     </div>
-                    <div>
-                        Round: <span id="round-info">0/0</span>
+                    <div class="text-lg font-medium text-gray-700">
+                        Time: <span id="time-left" class="font-semibold text-red-600"></span>
+                    </div>
+                    <div class="text-lg font-medium text-gray-700">
+                        Round: <span id="round-info" class="font-semibold text-gray-800"></span>
                     </div>
                 </div>
+
+                <canvas id="drawing-canvas" class="flex-grow bg-white border-2 border-gray-300 rounded-lg shadow-inner cursor-crosshair"></canvas>
+                <div id="drawing-tools" class="bg-gray-100 p-3 rounded-lg shadow-sm border border-gray-200 flex flex-wrap justify-center gap-2">
+                    <div class="flex flex-wrap gap-1">
+                        <div class="color-box w-8 h-8 rounded-full cursor-pointer shadow-sm border border-gray-300 transition-transform hover:scale-110" style="background-color: #000000;" data-color="#000000"></div>
+                        <div class="color-box w-8 h-8 rounded-full cursor-pointer shadow-sm border border-gray-300 transition-transform hover:scale-110" style="background-color: #FF0000;" data-color="#FF0000"></div>
+                        <div class="color-box w-8 h-8 rounded-full cursor-pointer shadow-sm border border-gray-300 transition-transform hover:scale-110" style="background-color: #0000FF;" data-color="#0000FF"></div>
+                        <div class="color-box w-8 h-8 rounded-full cursor-pointer shadow-sm border border-gray-300 transition-transform hover:scale-110" style="background-color: #008000;" data-color="#008000"></div>
+                        <div class="color-box w-8 h-8 rounded-full cursor-pointer shadow-sm border border-gray-300 transition-transform hover:scale-110" style="background-color: #FFFF00;" data-color="#FFFF00"></div>
+                        <div class="color-box w-8 h-8 rounded-full cursor-pointer shadow-sm border border-gray-300 transition-transform hover:scale-110" style="background-color: #FFA500;" data-color="#FFA500"></div>
+                        <div class="color-box w-8 h-8 rounded-full cursor-pointer shadow-sm border border-gray-300 transition-transform hover:scale-110" style="background-color: #800080;" data-color="#800080"></div>
+                        <div class="color-box w-8 h-8 rounded-full cursor-pointer shadow-sm border border-gray-300 transition-transform hover:scale-110" style="background-color: #FFFFFF;" data-color="#FFFFFF"></div>
+                    </div>
+
+
+                    <input type="range" id="brush-size" min="1" max="20" value="5" class="w-24 h-8 cursor-pointer accent-blue-500">
+                    <span id="brush-size-value" class="text-gray-700 font-semibold text-lg">5</span>
+
+
+                    <button id="clear-canvas-button"
+                            class="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-red-200">
+                        Clear
+                    </button>
+                </div>
+            </div>
+            <div class="flex flex-col w-full lg:w-96 gap-4">
+                <div class="bg-blue-50 p-4 rounded-lg shadow-md border border-blue-200 flex-none h-48 overflow-y-auto">
+                    <h2 class="text-xl font-bold text-blue-800 mb-3">Players</h2>
+                    <ul id="player-list" class="space-y-2">
+                    </ul>
+                </div>
+                <div class="bg-green-50 p-4 rounded-lg shadow-md border border-green-200 flex-grow flex-col flex">
+                    <h2 class="text-xl font-bold text-green-800 mb-3">Chat</h2>
+                    <div id="chat-messages" class="flex-grow overflow-y-auto mb-3 p-2 bg-white rounded-lg border border-gray-200 text-sm">
+                    </div>
+                    <input type="text" id="chat-input" placeholder="Type your guess or message..."
+                           class="w-full p-3 text-base border-2 border-green-300 rounded-lg focus:outline-none focus:ring-4 focus:ring-green-200 transition duration-300 ease-in-out shadow-sm">
+                </div>
+
+                <button id="start-game-button"
+                        class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-lg shadow-lg transform hover:scale-105 transition duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-green-300 w-full">
+                    Start Game
+                </button>
+            </div>
         </div>
     </div>
 
-    <script src="/socket.io/socket.io.js"></script>
+
+    <script src="app.js"></script>
     <script src="/script.js"></script>
 </body>
 </html>

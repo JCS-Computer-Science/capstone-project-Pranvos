@@ -1,0 +1,64 @@
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+
+#drawing-canvas {
+    touch-action: none; 
+    cursor: crosshair;
+}
+
+
+
+.color-box.active {
+    border: 3px solid #3B82F6; 
+    transform: scale(1.15); 
+}
+
+#drawing-tools.disabled {
+    pointer-events: none; 
+    opacity: 0.6; 
+    filter: grayscale(100%); 
+}
+
+
+@media (max-width: 1023px) { 
+    #app {
+        flex-direction: column; 
+    }
+
+    #game-container {
+        flex-direction: column;
+    }
+
+    #drawing-tools {
+        justify-content: center; 
+    }
+}
+
+@media (max-width: 767px) { 
+    #join-screen h1 {
+        font-size: 3rem; 
+    }
+    #join-screen p {
+        font-size: 1rem;
+    }
+    #username-input {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+    #join-button {
+        padding: 0.75rem 1.5rem;
+        font-size: 1.125rem;
+    }
+    #app {
+        padding: 1rem;
+    }
+}
