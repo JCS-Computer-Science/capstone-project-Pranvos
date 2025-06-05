@@ -3,15 +3,19 @@ const canvas = document.getElementById('drawing-canvas');
 const ctx = canvas.getContext('2d');
 const chatInput = document.getElementById('chat-input');
 const chatMessages = document.getElementById('chat-messages');
-const username = `Guest-${Math.floor(Math.random() * 1000)}`;
+const usernameInput = document.getElementById('username-input');
+const joinButton = document.getElementById('join-button');
+const joinScreen = document.getElementById('join-screen');
+const gameContainer = document.getElementById('game-container');
+const brushSizeSlider = document.getElementById('brush-size');
+const brushSizeValueSpan = document.getElementById('brush-size-value');
+const playerListUl = document.getElementById('player-list');
 
 let drawing = false;
 let currentColor = '#000000';
 let currentBrushSize = 5;
 let lastX = 0;
 let lastY = 0;
-
-socket.emit('joinGame', username);
 
 function resizeCanvas() {
     canvas.width = canvas.parentElement.clientWidth;
@@ -58,9 +62,13 @@ function draw(e) {
     lastY = currentY;
 }
 
-function stopDrawing() { drawing = false; }
+function stopDrawing() {
+    drawing = false;
+}
 
-function clearCanvas() { ctx.clearRect(0, 0, canvas.width, canvas.height); }
+function clearCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
 
 function addChatMessage(user, message) {
     const msgEl = document.createElement('div');
@@ -106,17 +114,37 @@ chatInput.addEventListener('keypress', (e) => {
     }
 });
 
+joinButton.addEventListener('click', () => {
+    let enteredUsername = usernameInput.value.trim();
+    if (enteredUsername === '') {
+        enteredUsername = `Guest-${Math.floor(Math.random() * 1000)}`;
+    }
+    socket.emit('joinGame', enteredUsername);
+
+    joinScreen.classList.add('hidden');
+    gameContainer.classList.remove('hidden');
+
+    addChatMessage('System', `Welcome, ${enteredUsername}! You can now draw and chat.`);
+
+    document.getElementById('drawing-tools').classList.remove('disabled');
+    canvas.classList.add('cursor-crosshair');
+    canvas.classList.remove('cursor-not-allowed');
+
+    document.getElementById('current-word').parentElement.classList.add('hidden');
+    document.getElementById('start-game-button').classList.add('hidden');
+});
+
 socket.on('chatMessage', (data) => addChatMessage(data.user, data.message));
 socket.on('drawing', (data) => drawLine(data.x0 * canvas.width, data.y0 * canvas.height, data.x1 * canvas.width, data.y1 * canvas.height, data.color, data.size));
 socket.on('clearCanvas', clearCanvas);
 
-document.getElementById('join-screen').classList.add('hidden');
-document.getElementById('game-container').classList.remove('hidden');
-document.getElementById('current-word').parentElement.classList.add('hidden');
-document.getElementById('player-list').parentElement.classList.add('hidden');
-document.getElementById('start-game-button').classList.add('hidden');
-document.getElementById('drawing-tools').classList.remove('disabled');
-canvas.classList.add('cursor-crosshair');
-canvas.classList.remove('cursor-not-allowed');
-
-addChatMessage('System', `Welcome, ${username}! You can now draw and chat.`);
+socket.on('updatePlayerList', (players) => {
+    playerListUl.innerHTML = '';
+    players.forEach(player => {
+        const li = document.createElement('li');
+        li.classList.add('text-gray-700');
+        li.textContent = player;
+        playerListUl.appendChild(li);
+    });
+    playerListUl.parentElement.classList.remove('hidden');
+});
