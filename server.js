@@ -7,7 +7,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'public'))); 
 
 let users = new Map();
 
@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
             username = `Guest-${Math.floor(Math.random() * 1000)}`;
         }
         users.set(socket.id, username);
-        console.log(`User ${username} (${socket.id}) joined.`);
+        console.log(`User <span class="math-inline">\{username\} \(</span>{socket.id}) joined.`);
         io.emit('chatMessage', { user: 'System', message: `${username} has joined the chat.` });
         emitPlayerList();
     });
@@ -46,7 +46,7 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         const username = users.get(socket.id);
         if (username) {
-            console.log(`User disconnected: ${username} (${socket.id})`);
+            console.log(`User disconnected: <span class="math-inline">\{username\} \(</span>{socket.id})`);
             users.delete(socket.id);
             io.emit('chatMessage', { user: 'System', message: `${username} has left the chat.` });
             emitPlayerList();
@@ -55,7 +55,6 @@ io.on('connection', (socket) => {
         }
     });
 });
-
 
 const PORT = process.env.PORT || 3000;
 server.listen(PORT, () => {
