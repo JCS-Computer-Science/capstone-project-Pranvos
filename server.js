@@ -24,7 +24,7 @@ io.on('connection', (socket) => {
             username = `Guest-${Math.floor(Math.random() * 1000)}`;
         }
         users.set(socket.id, username);
-        console.log(`User <span class="math-inline">\{username\} \(</span>{socket.id}) joined.`);
+        console.log(`User <span class="math-inline">\{username\}.`);
         io.emit('chatMessage', { user: 'System', message: `${username} has joined the chat.` });
         emitPlayerList();
     });

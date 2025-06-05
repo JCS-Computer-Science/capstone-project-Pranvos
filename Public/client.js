@@ -1,6 +1,7 @@
 const socket = io();
 const canvas = document.getElementById('drawing-canvas');
-const ctx = canvas.getContext('2d');
+const ctx = canvas.getContext('2d'); //2d drawing context
+ctx.imageSmoothingEnabled = true; 
 const chatInput = document.getElementById('chat-input');
 const chatMessages = document.getElementById('chat-messages');
 const usernameInput = document.getElementById('username-input');

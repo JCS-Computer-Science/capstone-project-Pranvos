@@ -1,6 +1,8 @@
-
 body {
     font-family: 'Inter', sans-serif;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 * {
@@ -9,29 +11,40 @@ body {
     padding: 0;
 }
 
-
-#drawing-canvas {
-    touch-action: none; 
-    cursor: crosshair;
+#app {
+    display: flex;
+    flex-grow: 1;
 }
 
+#game-container {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: row;
+    min-height: 0;
+}
 
+#drawing-canvas {
+    touch-action: none;
+    cursor: crosshair;
+    flex-grow: 1;
+    border: 2px solid #333; 
+
+}
 
 .color-box.active {
-    border: 3px solid #3B82F6; 
-    transform: scale(1.15); 
+    border: 3px solid #3B82F6;
+    transform: scale(1.15);
 }
 
 #drawing-tools.disabled {
-    pointer-events: none; 
-    opacity: 0.6; 
-    filter: grayscale(100%); 
+    pointer-events: none;
+    opacity: 0.6;
+    filter: grayscale(100%);
 }
 
-
-@media (max-width: 1023px) { 
+@media (max-width: 1023px) {
     #app {
-        flex-direction: column; 
+        flex-direction: column;
     }
 
     #game-container {
@@ -39,13 +52,13 @@ body {
     }
 
     #drawing-tools {
-        justify-content: center; 
+        justify-content: center;
     }
 }
 
-@media (max-width: 767px) { 
+@media (max-width: 767px) {
     #join-screen h1 {
-        font-size: 3rem; 
+        font-size: 3rem;
     }
     #join-screen p {
         font-size: 1rem;
