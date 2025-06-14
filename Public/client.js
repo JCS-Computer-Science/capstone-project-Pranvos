@@ -163,7 +163,6 @@ function activateEraserTool() {
 }
 
 
-// --- Event Listeners ---
 canvas.addEventListener('mousedown', startDrawing);
 canvas.addEventListener('mouseup', stopDrawing);
 canvas.addEventListener('mouseout', stopDrawing);
